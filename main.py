@@ -1,20 +1,16 @@
 import streamlit as st
 from grammarToLanguage import generar_gramatica
 
-# Título de la aplicación
-st.title("Generador de Gramáticas")
+st.title("Generador de lenguajes")
 
-# Entrada para terminales (vt)
 st.subheader("Terminales (vt)")
 vt_input = st.text_input("Ingrese los símbolos terminales separados por comas", "a,b")
 vt = set(vt_input.split(","))
 
-# Entrada para no terminales (vn)
 st.subheader("No Terminales (vn)")
 vn_input = st.text_input("Ingrese los símbolos no terminales separados por comas", "S,A")
 vn = set(vn_input.split(","))
 
-# Entrada para producciones (p)
 st.subheader("Producciones (p)")
 p = {}
 for simbolo in vn:
@@ -25,7 +21,6 @@ for simbolo in vn:
 # Entrada para profundidad máxima
 max_profundidad = st.slider("Profundidad máxima", 1, 10, 5)
 
-# Botón para generar las cadenas
 if st.button("Generar cadenas"):
     gramatica = (vt, vn, p)
 
@@ -34,7 +29,6 @@ if st.button("Generar cadenas"):
 
         st.subheader("Cadenas generadas:")
 
-        # Mostrar las cadenas como una lista
         for cadena in sorted(cadenas):
             st.write(f"- {cadena}")
 
