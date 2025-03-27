@@ -1,11 +1,11 @@
 def generar_gramatica(gramatica, simbolo = "S", max_profundidad = 5, profundidad = 0):
     vt, vn, p = gramatica
 
-    if profundidad > max_profundidad:
-        return set()
-
     if simbolo in vt:
         return {simbolo}
+
+    if profundidad >= max_profundidad:
+        return {""}
 
     if simbolo not in vn:
         raise ValueError("reglas de produccion incorrecta, simbolo: " + simbolo)
@@ -18,7 +18,7 @@ def generar_gramatica(gramatica, simbolo = "S", max_profundidad = 5, profundidad
 
         for parte in partes:
             nuevas_cadenas = set()
-            subcadenas = generar_gramatica(gramatica, parte, max_profundidad, profundidad + 1)
+            subcadenas = generar_gramatica(gramatica=gramatica, simbolo=parte, max_profundidad=max_profundidad, profundidad=profundidad + 1)
 
             for cadena in cadenas_actuales:
                 for subcadena in subcadenas:
@@ -29,3 +29,14 @@ def generar_gramatica(gramatica, simbolo = "S", max_profundidad = 5, profundidad
         resultados.update(cadenas_actuales)
 
     return resultados
+
+vt = {"a", "b"}
+vn = {"S", "A"}
+p = {
+    "S": ["a S b", "A"],
+    "A": ["a A", "b"]
+}
+
+print(generar_gramatica((vt, vn, p), max_profundidad=2))
+
+g = (vt, vn, p)
