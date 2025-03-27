@@ -3,19 +3,23 @@ from grammarToLanguage import generar_gramatica
 
 st.title("Generador de lenguajes")
 
-st.subheader("Terminales (vt)")
-vt_input = st.text_input("Ingrese los símbolos terminales separados por comas", "a,b")
-vt = set(vt_input.split(","))
+cols = st.columns(2)
 
-st.subheader("No Terminales (vn)")
-vn_input = st.text_input("Ingrese los símbolos no terminales separados por comas", "S,A")
-vn = set(vn_input.split(","))
+with cols[0]:
+    st.subheader("Terminales (vt)")
+    vt_input = st.text_input("Ingrese los símbolos terminales separados por comas", "a,b")
+    vt = set(vt_input.split(","))
+with cols[1]:
+    st.subheader("No Terminales (vn)")
+    vn_input = st.text_input("Ingrese los símbolos no terminales separados por comas", "S,A")
+    vn = set(vn_input.split(","))
 
 st.subheader("Producciones (p)")
+st.text("separar sibolos de las producciones por espacios")
 p = {}
 for simbolo in vn:
-    producciones = st.text_input(f"Producciones para {simbolo} (separadas por '|')",
-                                 value="a S b|A" if simbolo == "S" else "a A|b")
+    # Eliminamos los valores predeterminados específicos
+    producciones = st.text_input(f"Producciones para {simbolo} (separadas por '|')")
     p[simbolo] = producciones.split("|")
 
 # Entrada para profundidad máxima
@@ -26,7 +30,6 @@ if st.button("Generar cadenas"):
 
     try:
         cadenas = generar_gramatica(gramatica, max_profundidad=max_profundidad)
-
         st.subheader("Cadenas generadas:")
 
         for cadena in sorted(cadenas):
