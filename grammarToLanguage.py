@@ -29,14 +29,3 @@ def generar_gramatica(gramatica, simbolo = "S", max_profundidad = 5, profundidad
         resultados.update(cadenas_actuales)
 
     return resultados
-
-vt = {"a", "b"}
-vn = {"S", "A"}
-p = {
-    "S": ["a S b", "A"],
-    "A": ["a A", "b"]
-}
-
-print(generar_gramatica((vt, vn, p), max_profundidad=2))
-
-g = (vt, vn, p)

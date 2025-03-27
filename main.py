@@ -27,12 +27,10 @@ max_profundidad = st.slider("Profundidad máxima", 1, 10, 5)
 
 if st.button("Generar cadenas"):
     gramatica = (vt, vn, p)
-    print(gramatica)
     try:
         cadenas = generar_gramatica(gramatica=gramatica, max_profundidad=max_profundidad)
         st.subheader("Cadenas generadas:")
-
-        for cadena in sorted(cadenas):
+        for cadena in sorted(cadenas, key=len):
             st.write(f"- {cadena}")
 
     except ValueError as e:
